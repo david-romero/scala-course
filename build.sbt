@@ -30,6 +30,17 @@ lazy val exercise2 = project
 
 lazy val exercise3 = project
   .in(file("exercises/exercise3"))
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.typelevel"                  %% "cats-core"                       % V.cats,
+      "org.typelevel"                  %% "cats-effect"                     % V.catsEffect,
+      "org.typelevel"                  %% "discipline-scalatest"            % V.disciplineScalatest % Test,
+      "org.scalatest"                  %% "scalatest"                       % V.scalatest % Test,
+      "org.scalatestplus"              %% "scalatestplus-scalacheck"        % V.scalatestplus % Test,
+      "org.mockito"                    %% "mockito-scala"                   % V.mockitoScala % Test,
+      "com.github.julien-truffaut"     %% "monocle-law"                     % V.monocle % Test,
+    )
+  )
 
 lazy val exercise4 = project
   .in(file("exercises/exercise4"))

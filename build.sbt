@@ -1,10 +1,32 @@
 ThisBuild / scalaVersion := "2.12.11"
 
+lazy val V = new {
+  val cats                   = "2.0.0"
+  val catsEffect             = "2.0.0"
+  val monocle                = "2.0.0"
+  val mockitoScala           = "1.14.4"
+  val scalatestplus          = "1.0.0-M2"
+  val scalatest              = "3.2.2"
+  val disciplineScalatest    = "1.0.0-M1"
+}
+
+
 lazy val exercise1 = project
   .in(file("exercises/exercise1"))
 
 lazy val exercise2 = project
   .in(file("exercises/exercise2"))
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.typelevel"                  %% "cats-core"                       % V.cats,
+      "org.typelevel"                  %% "cats-effect"                     % V.catsEffect,
+      "org.typelevel"                  %% "discipline-scalatest"            % V.disciplineScalatest % Test,
+      "org.scalatest"                  %% "scalatest"                       % V.scalatest % Test,
+      "org.scalatestplus"              %% "scalatestplus-scalacheck"        % V.scalatestplus % Test,
+      "org.mockito"                    %% "mockito-scala"                   % V.mockitoScala % Test,
+      "com.github.julien-truffaut"     %% "monocle-law"                     % V.monocle % Test,
+    )
+  )
 
 lazy val exercise3 = project
   .in(file("exercises/exercise3"))
@@ -24,8 +46,13 @@ lazy val exampleScalacheck = project
   .dependsOn(exercise3)
   .settings(
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-core" % "1.6.0",
-      "org.scalacheck" %% "scalacheck" % "1.13.4"
+      "org.typelevel"                  %% "cats-core"                       % V.cats,
+      "org.typelevel"                  %% "cats-effect"                     % V.catsEffect,
+      "org.typelevel"                  %% "discipline-scalatest"            % V.disciplineScalatest % Test,
+      "org.scalatest"                  %% "scalatest"                       % V.scalatest % Test,
+      "org.scalatestplus"              %% "scalatestplus-scalacheck"        % V.scalatestplus % Test,
+      "org.mockito"                    %% "mockito-scala"                   % V.mockitoScala % Test,
+      "com.github.julien-truffaut"     %% "monocle-law"                     % V.monocle % Test,
     )
   )
 
@@ -49,3 +76,6 @@ lazy val docs = project
     )
   )
   .enablePlugins(MdocPlugin)
+libraryDependencies in exercise2 ++= Seq(
+  "org.scalatest" %% "scalatest" % "latest.integration" % "test"
+)

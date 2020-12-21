@@ -10,18 +10,20 @@ package exercise2
   * https://en.wikipedia.org/wiki/Binary_tree
   */
 sealed trait Tree[A]
+
 case class Empty[A]() extends Tree[A]
+
 case class Node[A](l: Tree[A], a: A, r: Tree[A]) extends Tree[A]
 
 object Tree {
 
   /**
-   * Implement a function height that returns the longest height in a
-   * tree
-   */
+    * Implement a function height that returns the longest height in a
+    * tree
+    */
   def height[A](tree: Tree[A]): Int = tree match {
     case Empty() => 0
-    case Node(l, _, r) => 1 + (height(l).max(height(r)))
+    case Node(l, _, r) => 1 + height(l).max(height(r))
   }
 
   /**
@@ -29,13 +31,13 @@ object Tree {
     */
   def sum(tree: Tree[Int]): Int = tree match {
     case Empty() => 0
-    case Node(l, x, r) => x + sum(l) + sum(r)
+    case Node(l, a, r) => a + sum(l) + sum(r)
   }
 
   /**
     * Create a function that counts all the leaves in a tree
     */
-  def count[A](tree: Tree[A]): Int =  tree match {
+  def count[A](tree: Tree[A]): Int = tree match {
     case Empty() => 0
     case Node(l, _, r) => 1 + count(l) + count(r)
   }
@@ -46,10 +48,7 @@ object Tree {
     */
   def toStringNodes(tree: Tree[Int]): Tree[String] = tree match {
     case Empty() => Empty()
-    case Node(l, x, r) => Node(
-      toStringNodes(l),
-      x.toString,
-      toStringNodes(r))
+    case Node(l, a, r) => Node(toStringNodes(l), a.toString, toStringNodes(r))
   }
 
   /**
@@ -57,9 +56,6 @@ object Tree {
     */
   def squared(tree: Tree[Int]): Tree[Int] = tree match {
     case Empty() => Empty()
-    case Node(l, x, r) => Node(
-      squared(l),
-      x * x,
-      squared(r))
+    case Node(l, a, r) => Node(squared(l), a * a, squared(r))
   }
 }
